@@ -52,7 +52,7 @@ export default HomePage */
 export default function PaginaInicial() {
   /* const username = 'sonobe-br'; */
   const [username, setUsername] = React.useState('Sonobe-br');
-
+  /* o setUsername e o useRouter é um hook do Next */
   const roteamento = useRouter(); 
 
   return (
@@ -64,7 +64,7 @@ export default function PaginaInicial() {
           backgroundColor: appConfig.theme.colors.primary[500],
           backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
           backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
-        }}
+        }} 
       >
         <Box
           styleSheet={{
@@ -89,8 +89,9 @@ export default function PaginaInicial() {
 
             onSubmit = { function(infosDoEvento) {
               infosDoEvento.preventDefault();  
-              console.log('Alguém submenteu o form');
-              roteamento.push('/chat');
+              console.log('Alguém submeteu o form');
+              roteamento.push('/chat'); /* >>> sistema de roteamento do Next que corrigiu o detalhe de reloaded da página */
+
               /* window.location.href = '/chat'; */
 
             }} 
@@ -99,8 +100,10 @@ export default function PaginaInicial() {
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
             }}
+
           >
-            <Titulo tag="h2">Welcome to Skynet</Titulo>
+
+            <Titulo tag="h2">Welcome to Cyber Chat</Titulo>
             <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
               {appConfig.name}
             </Text>
@@ -193,6 +196,7 @@ export default function PaginaInicial() {
             </Text>
           </Box>
           {/* Photo Area */}
+          {/* código do Theme/Color 500 green - config.json = #3F9142 */}
         </Box>
       </Box>
     </>
