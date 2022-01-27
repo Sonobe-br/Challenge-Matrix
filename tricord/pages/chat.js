@@ -32,7 +32,7 @@ export default function ChatPage() {
                 backgroundImage: `url(https://wallpaperaccess.com/full/2881108.jpg)`,
                 backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
                 color: appConfig.theme.colors.neutrals['000']
-            
+                
             }}
         >
             <Box
@@ -47,7 +47,7 @@ export default function ChatPage() {
                     borderRadius: '5px',
                     backgroundColor: appConfig.theme.colors.neutrals[700],
                     height: '100%',
-                    maxWidth: '65%',
+                    maxWidth: '50%',
                     maxHeight: '70vh',
                     padding: '32px',
                 
