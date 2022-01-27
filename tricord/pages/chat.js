@@ -1,11 +1,33 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React from 'react';
 import appConfig from '../config.json';
+import { createClient } from '@supabase/supabase-js'
+
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMxMDg5OCwiZXhwIjoxOTU4ODg2ODk4fQ.6-BY7f9a-5Vqa87K4Z-B-PrPzNelNOEPeiRKhXjh9kM';
+const SUPABASE_URL = 'https://kxftkbecsmitbmdwmpmn.supabase.co';
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
 
 export default function ChatPage() {
     
     const [mensagem, setMensagem] = React.useState('');
     const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
+    
+    React.useEffect(() => {
+        
+        supabaseClient
+            .from('mensagens')
+            .select('*')
+            .then(({ data }) => { 
+        
+                console.log('Dados da consulta: ', data);
+                setListaDeMensagens(data);    
+
+            });   
+    }, []);
+
+
 
     function handleNovaMensagem(novaMensagem) {
         const mensagem = {
@@ -70,7 +92,7 @@ export default function ChatPage() {
                 
                 >
                <MessageList mensagens = {listaDeMensagens} />
-                    I'm a Bot, how can I help you? {mensagem}
+                    {/* I'm a bot, how can I help you? {mensagem} */}
 
                   {/*  {listaDeMensagens.map((mensagemAtual) => {
                         return (
@@ -79,7 +101,6 @@ export default function ChatPage() {
                             </li>
                         )
                     })}  */} 
-
 
                     <Box
                         as="form"
@@ -99,7 +120,7 @@ export default function ChatPage() {
                                 setMensagem(valor);
 
                             }}
-
+                            //função responsavél pelo 'enter' do teclado    
                             onKeyPress={(event) => {
                                 if (event.key === 'Enter') {
                                     event.preventDefault();
@@ -141,8 +162,9 @@ function Header() {
                     alignItems: 'center', 
                     justifyContent: 'space-between' 
                 }} 
-            >
-                
+            
+            > 
+            
                 <Text variant='heading5'>Chat</Text>
         
                 <Button
@@ -159,62 +181,63 @@ function Header() {
 
 function MessageList(props) {
     return (  
-    <Box
-        tag="ul"
-        styleSheet={{
-            overflow: 'scroll',
-            display: 'flex',
-            flexDirection: 'column-reverse',
-            flex: 1,
-            color: appConfig.theme.colors.neutrals["000"],
-            marginBottom: '16px',
-        }}
-    >
+        <Box
+            tag="ul"
+            styleSheet={{
+                overflow: 'scroll',
+                display: 'flex',
+                flexDirection: 'column-reverse',
+                flex: 1,
+                color: appConfig.theme.colors.neutrals["000"],
+                marginBottom: '16px',
+            }}
+        
+        >
 
-    {props.mensagens.map((mensagem) => {
-        return (
-            <Text
-                key={mensagem.id}
-                tag="li"
-                styleSheet={{
-                    borderRadius: '5px',
-                    padding: '6px',
-                    marginBottom: '12px',
-                    hover: {
-                        backgroundColor: appConfig.theme.colors.neutrals[700],
-                    },
-                }}
-            >
-                <Box
-                    styleSheet={{
-                     marginBottom: '8px',
-                    }}
-                >
-                    <Image
-                        styleSheet={{
-                            width: '20px',
-                            height: '20px',
-                            borderRadius: '50%',
-                            display: 'inline-block',
-                            marginRight: '8px',
-                        }}
-                        src={`https://github.com/sonobe-br.png`}
-                    />
-                        
-                    <Text tag="strong">{mensagem.de}</Text>
+            {props.mensagens.map((mensagem) => {
+                return (
                     <Text
+                        key={mensagem.id}
+                        tag="li"
                         styleSheet={{
-                            fontSize: '10px',
-                            marginLeft: '8px',
-                            color: appConfig.theme.colors.neutrals[300],
+                            borderRadius: '5px',
+                            padding: '6px',
+                            marginBottom: '12px',
+                            hover: {
+                            backgroundColor: appConfig.theme.colors.neutrals[700],
+                            },
                         }}
-                            
-                        tag="span"
-                            
                     >
-                            
-                        {(new Date().toLocaleDateString())}
-                        </Text>
+                        <Box
+                            styleSheet={{
+                             marginBottom: '8px',
+                            }}
+                        >
+                            <Image
+                                styleSheet={{
+                                    width: '20px',
+                                    height: '20px',
+                                    borderRadius: '50%',
+                                    display: 'inline-block',
+                                    marginRight: '8px',
+                                }}
+                                src={`https://github.com/${mensagem.de}.png`}
+                            />
+
+                            <Text tag="strong">{mensagem.de}</Text>
+                            <Text
+                                styleSheet={{
+                                    fontSize: '10px',
+                                    marginLeft: '8px',
+                                    color: appConfig.theme.colors.neutrals[300],
+                                }}
+
+                                tag="span"
+
+                            >
+
+                                {(new Date().toLocaleDateString())}
+                            </Text>
                         </Box>
                         {mensagem.texto}
                     </Text>
