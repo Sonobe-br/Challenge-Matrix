@@ -15,10 +15,10 @@ export default function ChatPage() {
     const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
     
     React.useEffect(() => {
-        
         supabaseClient
             .from('mensagens')
             .select('*')
+            .order('id', { ascending: false })
             .then(({ data }) => { 
         
                 console.log('Dados da consulta: ', data);
@@ -27,19 +27,32 @@ export default function ChatPage() {
             });   
     }, []);
 
-
-
     function handleNovaMensagem(novaMensagem) {
         const mensagem = {
-            id: listaDeMensagens.length + 1,
+            /* id: listaDeMensagens.length + 1, */
             de: 'sonobe-br',
             texto: novaMensagem,
         };
 
-        setListaDeMensagens([
-            mensagem,
-            ...listaDeMensagens,
-        ]);
+        supabaseClient
+            .from('mensagens')
+            .insert([
+                
+                mensagem
+            
+            ])
+            .then(({ data }) => {
+
+                console.log('Criando mensagem: ', data);
+                
+                setListaDeMensagens([
+                    data[0],
+                    ...listaDeMensagens,
+                ]);
+
+            });
+
+
         setMensagem('');
     }
 

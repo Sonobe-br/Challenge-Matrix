@@ -61,9 +61,10 @@ export default function PaginaInicial() {
       <Box
         styleSheet={{
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          backgroundColor: appConfig.theme.colors.primary[500],
-          backgroundImage: 'url(https://virtualbackgrounds.site/wp-content/uploads/2020/08/the-matrix-digital-rain.jpg)',
+          backgroundColor: appConfig.theme.colors.primary[98],
+          backgroundImage: 'url(https://assets-eu-01.kc-usercontent.com/80e06f8f-fc39-0158-c90c-a3da02f900f2/1fdb2b65-723a-4d75-ad81-155a235201fe/Earth%20from%20space%20title.jpg)',
           backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
+         
         }} 
       >
         <Box
@@ -147,7 +148,7 @@ export default function PaginaInicial() {
 
             <Button
               type='submit'
-              label='Entrar'
+              label='Enter'
               fullWidth
               buttonColors={{
                 contrastColor: appConfig.theme.colors.neutrals["000"],
@@ -171,7 +172,7 @@ export default function PaginaInicial() {
               backgroundColor: appConfig.theme.colors.neutrals[800],
               border: '1px solid',
               borderColor: appConfig.theme.colors.neutrals[999],
-              borderRadius: '10px',
+              borderRadius: '5px',
               flex: 1,
               minHeight: '240px',
             }}
