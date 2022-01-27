@@ -70,6 +70,7 @@ export default function ChatPage() {
                 
                 >
                <MessageList mensagens = {listaDeMensagens} />
+                    I'm a Bot, how can I help you? {mensagem}
 
                   {/*  {listaDeMensagens.map((mensagemAtual) => {
                         return (
@@ -103,8 +104,10 @@ export default function ChatPage() {
                                 if (event.key === 'Enter') {
                                     event.preventDefault();
                                     handleNovaMensagem(mensagem);
+                                    
+                                    console.log(event);
                                 }
-                            }}
+                            }} 
               
                             placeholder="Insira sua mensagem aqui..."
                             type="textarea"
