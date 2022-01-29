@@ -1,13 +1,23 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
 import React from 'react';
 import appConfig from '../config.json';
+import { useRouter } from 'next/router'; 
 import { createClient } from '@supabase/supabase-js'
+import { ButtonSendSticker } from '../Source/Componentes/ButtonSendSticker';
 
+// Como fazer AJAX: https://medium.com/@omariosouto/entendendo-como-fazer-ajax-com-a-fetchapi-977ff20da3c6
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMxMDg5OCwiZXhwIjoxOTU4ODg2ODk4fQ.6-BY7f9a-5Vqa87K4Z-B-PrPzNelNOEPeiRKhXjh9kM';
 const SUPABASE_URL = 'https://kxftkbecsmitbmdwmpmn.supabase.co';
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-
+function escutaMensagensEmTempoReal(adicionaMensagem) {
+    return supabaseClient
+      .from('mensagens')
+      .on('INSERT', (respostaLive) => {
+        adicionaMensagem(respostaLive.new);
+      })
+      .subscribe();
+  }
 
 export default function ChatPage() {
     
@@ -24,8 +34,36 @@ export default function ChatPage() {
                 console.log('Dados da consulta: ', data);
                 setListaDeMensagens(data);    
 
-            });   
+            }); 
+            
+            const subscription = escutaMensagensEmTempoReal((novaMensagem) => {
+                console.log('Nova mensagem:', novaMensagem);
+                console.log('listaDeMensagens:', listaDeMensagens);
+                // Quero reusar um valor de referencia (objeto/array) 
+                // Passar uma função pro setState
+          
+                // setListaDeMensagens([
+                //     novaMensagem,
+                //     ...listaDeMensagens
+                // ])
+                setListaDeMensagens((valorAtualDaLista) => {
+                  console.log('valorAtualDaLista:', valorAtualDaLista);
+                  return [
+                    novaMensagem,
+                    ...valorAtualDaLista,
+                  ]
+                });
+            });
+          
+            return () => {
+            subscription.unsubscribe();
+            }
+
+
+
     }, []);
+
+
 
     function handleNovaMensagem(novaMensagem) {
         const mensagem = {

@@ -91,7 +91,7 @@ export default function PaginaInicial() {
             onSubmit = { function(infosDoEvento) {
               infosDoEvento.preventDefault();  
               console.log('Alguém submeteu o form');
-              roteamento.push('/chat'); /* >>> sistema de roteamento do Next que corrigiu o detalhe de reloaded da página */
+              roteamento.push(`/chat?username = ${username}`); /* >>> sistema de roteamento do Next que corrigiu o detalhe de reloaded da página */
 
               /* window.location.href = '/chat'; */
 
