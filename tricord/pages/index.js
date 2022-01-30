@@ -51,7 +51,7 @@ export default HomePage */
 
 export default function PaginaInicial() {
   /* const username = 'sonobe-br'; */
-  const [username, setUsername] = React.useState('Sonobe-br');
+  const [username, setUsername] = React.useState(''); //deixando a array sempre vazia para o login
   /* o setUsername e o useRouter é um hook do Next */
   const roteamento = useRouter(); 
 
@@ -66,7 +66,8 @@ export default function PaginaInicial() {
           backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
          
         }} 
-      >
+        >
+
         <Box
           styleSheet={{
             display: 'flex',
@@ -76,33 +77,33 @@ export default function PaginaInicial() {
               xs: 'column',
               sm: 'row',
             },
-
+            
             width: '100%', maxWidth: '700px',
             borderRadius: '5px', padding: '32px', margin: '16px',
             boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
             backgroundColor: appConfig.theme.colors.neutrals[700],
-
+            
           }}
-        >
+          >
           {/* Formulário */}
           <Box
             as="form"
-
+            
             onSubmit = { function(infosDoEvento) {
               infosDoEvento.preventDefault();  
               console.log('Alguém submeteu o form');
               roteamento.push(`/chat?username = ${username}`); /* >>> sistema de roteamento do Next que corrigiu o detalhe de reloaded da página */
-
+              
               /* window.location.href = '/chat'; */
-
+              
             }} 
             
             styleSheet = {{
               display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
               width: { xs: '100%', sm: '50%' }, textAlign: 'center', marginBottom: '32px',
             }}
-
-          >
+            
+            >
 
             <Titulo tag="h2">Welcome to Cyber Chat</Titulo>
             <Text variant="body3" styleSheet={{ marginBottom: '32px', color: appConfig.theme.colors.neutrals[300] }}>
@@ -113,27 +114,31 @@ export default function PaginaInicial() {
               type="text"
               value = {username}
               onChange = {function (eventInfo){
-
+                
                 console.log('O usuário digitou', eventInfo.target.value);
-
+                
                 const valor = event.target.value;
                 setUsername(valor);
-
+                
               }}
-
+              
             /> */}
 
             <TextField
               value = {username}
-
+              
               onChange = {function (eventInfo){
-
+                
                 console.log('O usuário digitou', eventInfo.target.value);
-
+                
                 const valor = event.target.value;
                 setUsername(valor);
-
+                
               }}
+
+              
+              placeholder="Enter your Github login 👽" 
+              
 
               fullWidth
               textFieldColors={{

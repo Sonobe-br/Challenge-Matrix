@@ -203,7 +203,7 @@ export default function ChatPage() {
                                 }
                             }} 
               
-                            placeholder="Insira sua mensagem aqui..."
+                            placeholder="Enter your message..."
                             type="textarea"
                            
                             styleSheet={{
