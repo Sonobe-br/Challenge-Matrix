@@ -27,11 +27,19 @@ export default function ChatPage() {
     const [mensagem, setMensagem] = React.useState('');
     const [listaDeMensagens, setListaDeMensagens] = React.useState([
 
-        /* {
+       /*  {
 
             id: 1,
             de: 'Sonobe-br',
             texto: ':sticker: https://media1.giphy.com/media/BdghqxNFV4efm/200.gif',
+ 
+        },
+
+        {
+
+            id: 2,
+            de: 'Nasa',
+            texto: 'Esta complicado, https://c.tenor.com/TKpmh4WFEsAAAAAC/alura-gaveta-filmes.gif',
 
         } */
 
@@ -90,9 +98,8 @@ export default function ChatPage() {
         supabaseClient
             .from('mensagens')
             .insert([
-                
+                // tem que ser um objeto com os MESMOS CAMPOS escritos no supabase
                 mensagem
-            
             ])
             .then(({ data }) => {
 
@@ -212,8 +219,7 @@ export default function ChatPage() {
                         />
                         <ButtonSendSticker 
                             onStickerClick = {(sticker) => {
-
-                                console.log('[usando um componente] Manda este sticker para o back-end', sticker);
+                                console.log('[USANDO UM COMPONENTE] Manda este sticker para o back-end', sticker);
                                 handleNovaMensagem(':sticker:' + sticker); 
                             
                             }}
@@ -314,13 +320,12 @@ function MessageList(props) {
                                 {(new Date().toLocaleDateString())}
                             </Text>
                         </Box>
-                       {/*  Condicional: {mensagem.texto.startsWith(':sticker:').toString()} */}
+                        {/* Condicional: {mensagem.texto.startsWith(':sticker:').toString()} */}
                         {mensagem.texto.startsWith(':sticker:') 
                         
                             ? (
                                 <Image src = {mensagem.texto.replace(':sticker:', '')} />
                             )
-                            
                             : (
                                 mensagem.texto
                             )}        
