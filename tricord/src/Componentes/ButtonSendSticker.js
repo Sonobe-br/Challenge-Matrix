@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Text, Image } from '@skynexui/components';
 import appConfig from '../../config.json';
 
-export function ButtonSendSticker(props) {
+export function ButtonSendSticker() {
   const [isOpen, setOpenState] = React.useState('');
 
   return (
@@ -30,7 +30,8 @@ export function ButtonSendSticker(props) {
           }
         }}
         label="😋"
-        onClick={() => setOpenState(!isOpen)}
+
+        onClick={() => setOpenState(!isOpen)} //lógica do botão dos stickers 
       />
       {isOpen && (
         <Box
@@ -52,7 +53,7 @@ export function ButtonSendSticker(props) {
           }}
           onClick={() => setOpenState(false)}
         >
-          <Text
+          <Text // texto dos stickers
             styleSheet={{
               color: appConfig.theme.colors.neutrals["000"],
               fontWeight: 'bold',
@@ -71,10 +72,13 @@ export function ButtonSendSticker(props) {
               overflow: 'scroll',
             }}
           >
+
+
+            {/* REVISÃO DO CÓDIGO A PARTIR DAQUI */}
             {appConfig.stickers.map((sticker) => (
               <Text
-                onClick={() => {
-                  // console.log('[DENTRO DO COMPONENTE] Clicou no sticker:', sticker);
+                onClick={(props) => {
+                  //console.log('[DENTRO DO COMPONENTE] Clicou no sticker:', sticker);
                   if (Boolean(props.onStickerClick)) {
                     props.onStickerClick(sticker);
                   }

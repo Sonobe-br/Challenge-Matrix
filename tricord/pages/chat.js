@@ -3,7 +3,7 @@ import React from 'react';
 import appConfig from '../config.json';
 import { useRouter } from 'next/router'; 
 import { createClient } from '@supabase/supabase-js'
-import { ButtonSendSticker } from '../Source/Componentes/ButtonSendSticker';
+import { ButtonSendSticker } from '../src/Componentes/ButtonSendSticker';
 
 // Como fazer AJAX: https://medium.com/@omariosouto/entendendo-como-fazer-ajax-com-a-fetchapi-977ff20da3c6
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMxMDg5OCwiZXhwIjoxOTU4ODg2ODk4fQ.6-BY7f9a-5Vqa87K4Z-B-PrPzNelNOEPeiRKhXjh9kM';
@@ -20,10 +20,25 @@ function escutaMensagensEmTempoReal(adicionaMensagem) {
   }
 
 export default function ChatPage() {
-    
+    const roteamento = useRouter();
+    const usuarioLogado = roteamento.query.username;
+    /* console.log('roteamento', roteamento.query);
+    console.log('usuarioLogado', usuarioLogado); */  
     const [mensagem, setMensagem] = React.useState('');
-    const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
+    const [listaDeMensagens, setListaDeMensagens] = React.useState([
+
+        /* {
+
+            id: 1,
+            de: 'Sonobe-br',
+            texto: ':sticker: https://media1.giphy.com/media/BdghqxNFV4efm/200.gif',
+
+        } */
+
+
+    ]);
     
+    //back-end
     React.useEffect(() => {
         supabaseClient
             .from('mensagens')
@@ -68,7 +83,7 @@ export default function ChatPage() {
     function handleNovaMensagem(novaMensagem) {
         const mensagem = {
             /* id: listaDeMensagens.length + 1, */
-            de: 'sonobe-br',
+            de: usuarioLogado,
             texto: novaMensagem,
         };
 
@@ -195,6 +210,14 @@ export default function ChatPage() {
                                 color: appConfig.theme.colors.neutrals[200],
                             }}
                         />
+                        <ButtonSendSticker 
+                            onStickerClick = {(sticker) => {
+
+                                console.log('[usando um componente] Manda este sticker para o back-end', sticker);
+                                handleNovaMensagem(':sticker:' + sticker); 
+                            
+                            }}
+                        />
                     </Box>
                 </Box>
             </Box>
@@ -231,6 +254,7 @@ function Header() {
 }
 
 function MessageList(props) {
+    console.log(props);
     return (  
         <Box
             tag="ul"
@@ -290,7 +314,18 @@ function MessageList(props) {
                                 {(new Date().toLocaleDateString())}
                             </Text>
                         </Box>
-                        {mensagem.texto}
+                       {/*  Condicional: {mensagem.texto.startsWith(':sticker:').toString()} */}
+                        {mensagem.texto.startsWith(':sticker:') 
+                        
+                            ? (
+                                <Image src = {mensagem.texto.replace(':sticker:', '')} />
+                            )
+                            
+                            : (
+                                mensagem.texto
+                            )}        
+
+                        {/* {mensagem.texto} */}
                     </Text>
                 );
             })}
