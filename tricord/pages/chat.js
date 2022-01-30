@@ -91,7 +91,7 @@ export default function ChatPage() {
     function handleNovaMensagem(novaMensagem) {
         const mensagem = {
             /* id: listaDeMensagens.length + 1, */
-            de: usuarioLogado,
+            de: 'Sonobe-br',
             texto: novaMensagem,
         };
 
@@ -142,7 +142,7 @@ export default function ChatPage() {
                     borderRadius: '5px',
                     backgroundColor: appConfig.theme.colors.neutrals[700],
                     height: '100%',
-                    maxWidth: '50%',
+                    maxWidth: '55%',
                     maxHeight: '70vh',
                     padding: '32px',
                 
@@ -265,7 +265,7 @@ function MessageList(props) {
         <Box
             tag="ul"
             styleSheet={{
-                overflow: 'scroll',
+                overflow: 'auto',
                 display: 'flex',
                 flexDirection: 'column-reverse',
                 flex: 1,

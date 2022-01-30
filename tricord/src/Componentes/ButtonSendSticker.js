@@ -13,10 +13,11 @@ export function ButtonSendSticker(props) {
     >
       <Button
         styleSheet={{
-          borderRadius: '50%',
+          position: 'relative',
+          borderRadius: '8%',
           padding: '0 3px 0 0',
-          minWidth: '50px',
-          minHeight: '50px',
+          minWidth: '43px',
+          minHeight: '43px',
           fontSize: '20px',
           marginBottom: '8px',
           lineHeight: '0',
@@ -42,13 +43,13 @@ export function ButtonSendSticker(props) {
             flexDirection: 'column',
             borderRadius: '5px',
             position: 'absolute',
-            backgroundColor: appConfig.theme.colors.neutrals[800],
+            backgroundColor: appConfig.theme.colors.neutrals[500],
             width: {
               xs: '200px',
               sm: '290px',
             },
-            height: '300px',
-            right: '30px',
+            height: '310px',
+            right: '5px',
             bottom: '30px',
             padding: '16px',
             boxShadow: 'rgba(4, 4, 5, 0.15) 0px 0px 0px 1px, rgba(0, 0, 0, 0.24) 0px 8px 16px 0px',
@@ -70,7 +71,7 @@ export function ButtonSendSticker(props) {
               flexWrap: 'wrap',
               justifyContent: 'space-between',
               flex: 1,
-              paddingTop: '16px',
+              paddingTop: '8px',
               overflow: 'scroll',
             }}
           >
