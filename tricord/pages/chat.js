@@ -15,6 +15,7 @@ function escutaMensagensEmTempoReal(adicionaMensagem) {
       .from('mensagens')
       .on('INSERT', (respostaLive) => {
         adicionaMensagem(respostaLive.new);
+        console.log('Houve uma nova mensagem', respostaLive)
       })
       .subscribe();
   }
@@ -25,26 +26,7 @@ export default function ChatPage() {
     /* console.log('roteamento', roteamento.query);
     console.log('usuarioLogado', usuarioLogado); */  
     const [mensagem, setMensagem] = React.useState('');
-    const [listaDeMensagens, setListaDeMensagens] = React.useState([
-
-       /*  {
-
-            id: 1,
-            de: 'Sonobe-br',
-            texto: ':sticker: https://media1.giphy.com/media/BdghqxNFV4efm/200.gif',
- 
-        },
-
-        {
-
-            id: 2,
-            de: 'Nasa',
-            texto: 'Esta complicado, https://c.tenor.com/TKpmh4WFEsAAAAAC/alura-gaveta-filmes.gif',
-
-        } */
-
-
-    ]);
+    const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
     
     //back-end
     React.useEffect(() => {
@@ -81,12 +63,17 @@ export default function ChatPage() {
             return () => {
             subscription.unsubscribe();
             }
+            escutaMensagensEmTempoReal((novaMensagem) => {
+                console.log('Nova Mensagem:', novaMensagem);
+                setListaDeMensagens(() => {
+                    return[
+                        novaMensagem,
+                        ...listaDeMensagens,
+                    ]
 
-
-
+                });
+            });
     }, []);
-
-
 
     function handleNovaMensagem(novaMensagem) {
         const mensagem = {
@@ -104,11 +91,6 @@ export default function ChatPage() {
             .then(({ data }) => {
 
                 console.log('Criando mensagem: ', data);
-                
-                setListaDeMensagens([
-                    data[0],
-                    ...listaDeMensagens,
-                ]);
 
             });
 
@@ -305,7 +287,10 @@ function MessageList(props) {
                                 src={`https://github.com/${mensagem.de}.png`}
                             />
 
-                            <Text tag="strong">{mensagem.de}</Text>
+                            <Text tag="strong">
+                                {mensagem.de}
+                            </Text>
+                            
                             <Text
                                 styleSheet={{
                                     fontSize: '10px',

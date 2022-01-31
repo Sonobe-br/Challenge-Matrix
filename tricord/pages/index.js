@@ -50,7 +50,7 @@ function Titulo(props) {
 export default HomePage */
 
 export default function PaginaInicial() {
-  /* const username = 'sonobe-br'; */
+  //const username = 'sonobe-br';
   const [username, setUsername] = React.useState(''); //deixando a array sempre vazia para o login
   /* o setUsername e o useRouter é um hook do Next */
   const roteamento = useRouter(); 
