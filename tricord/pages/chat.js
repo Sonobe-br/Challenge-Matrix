@@ -10,7 +10,7 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5v
 const SUPABASE_URL = 'https://kxftkbecsmitbmdwmpmn.supabase.co';
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-function escutaMensagensEmTempoReal(adicionaMensagem) {
+function getRealTimeChat(adicionaMensagem) {
     return supabaseClient
       .from('mensagens')
       .on('INSERT', (respostaLive) => {
@@ -41,7 +41,7 @@ export default function ChatPage() {
 
             }); 
             
-            const subscription = escutaMensagensEmTempoReal((novaMensagem) => {
+            const subscription = getRealTimeChat((novaMensagem) => {
                 console.log('Nova mensagem:', novaMensagem);
                 console.log('listaDeMensagens:', listaDeMensagens);
                 // Quero reusar um valor de referencia (objeto/array) 
@@ -63,22 +63,24 @@ export default function ChatPage() {
             return () => {
             subscription.unsubscribe();
             }
-            escutaMensagensEmTempoReal((novaMensagem) => {
+            
+            getRealTimeChat((novaMensagem) => {
                 console.log('Nova Mensagem:', novaMensagem);
                 setListaDeMensagens(() => {
                     return[
                         novaMensagem,
                         ...listaDeMensagens,
                     ]
-
+                    
                 });
             });
-    }, []);
+        }, []);
+        
 
     function handleNovaMensagem(novaMensagem) {
         const mensagem = {
             /* id: listaDeMensagens.length + 1, */
-            de: 'Sonobe-br',
+            de: usuarioLogado,
             texto: novaMensagem,
         };
 
@@ -105,8 +107,9 @@ export default function ChatPage() {
             styleSheet={{
             
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                backgroundColor: appConfig.theme.colors.primary[500],
-                backgroundImage: `url(https://wallpaperaccess.com/full/2881108.jpg)`,
+                backgroundColor: appConfig.theme.colors.primary[100],
+                backgroundImage: `url(https://scwcontent.affino.com/AcuCustom/Sitename/DAM/025/Mars2.jpeg)`,
+                //backgroundImage: `url(https://wallpaperaccess.com/full/2881108.jpg)`,
                 backgroundRepeat: 'no-repeat', backgroundSize: 'cover', backgroundBlendMode: 'multiply',
                 color: appConfig.theme.colors.neutrals['000']
                 
