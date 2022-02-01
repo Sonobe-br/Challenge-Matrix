@@ -1,9 +1,9 @@
 import { Box, Text, TextField, Image, Button } from '@skynexui/components';
-import React from 'react';
-import appConfig from '../config.json';
-import { useRouter } from 'next/router'; 
-import { createClient } from '@supabase/supabase-js'
 import { ButtonSendSticker } from '../src/Componentes/ButtonSendSticker';
+import { createClient } from '@supabase/supabase-js'
+import { useRouter } from 'next/router'; 
+import appConfig from '../config.json';
+import React from 'react';
 
 // Como fazer AJAX: https://medium.com/@omariosouto/entendendo-como-fazer-ajax-com-a-fetchapi-977ff20da3c6
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY0MzMxMDg5OCwiZXhwIjoxOTU4ODg2ODk4fQ.6-BY7f9a-5Vqa87K4Z-B-PrPzNelNOEPeiRKhXjh9kM';
@@ -20,11 +20,12 @@ function getRealTimeChat(adicionaMensagem) {
       .subscribe();
   }
 
+  
+
 export default function ChatPage() {
     const roteamento = useRouter();
     const usuarioLogado = roteamento.query.username;
-    /* console.log('roteamento', roteamento.query);
-    console.log('usuarioLogado', usuarioLogado); */  
+   
     const [mensagem, setMensagem] = React.useState('');
     const [listaDeMensagens, setListaDeMensagens] = React.useState([]);
     
@@ -119,13 +120,13 @@ export default function ChatPage() {
                 
                 styleSheet={{
                     position: 'relative',
-                    left: '-90px',    
+                    left: '-26px',    
                     display: 'flex',
                     flexDirection: 'column',
                     flex: 1,
                     boxShadow: '0 2px 10px 0 rgb(0 0 0 / 20%)',
                     borderRadius: '5px',
-                    backgroundColor: appConfig.theme.colors.neutrals[700],
+                    backgroundColor: appConfig.theme.colors.neutrals[800],
                     height: '100%',
                     maxWidth: '55%',
                     maxHeight: '70vh',
