@@ -30,7 +30,7 @@ export function ButtonSendSticker(props) {
             filter: 'grayscale(0)',
           }
         }}
-        label="😋"
+        label="😆"
         onClick={() => setOpenState(!isOpen)} //lógica do botão dos stickers 
 
       />

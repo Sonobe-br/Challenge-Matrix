@@ -1,5 +1,4 @@
 function GlobalStyle() {
-  
 
   return (
 
@@ -48,6 +47,6 @@ export default function CustomApp({ Component, pageProps }) {
       < Component {...pageProps} />
     </>
 
-  )
+  );
 
 }

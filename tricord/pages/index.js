@@ -51,7 +51,7 @@ export default HomePage */
 
 export default function PaginaInicial() {
   //const username = 'sonobe-br';
-  const [username, setUsername] = React.useState(''); //deixando a array sempre vazia para o login
+  const [username, setUsername] = React.useState('Sonobe-br'); //deixando a array sempre vazia para o login
   /* o setUsername e o useRouter é um hook do Next */
   const roteamento = useRouter(); 
 
@@ -88,7 +88,6 @@ export default function PaginaInicial() {
           {/* Formulário */}
           <Box
             as="form"
-            
             onSubmit = { function(infosDoEvento) {
               infosDoEvento.preventDefault();  
               console.log('Alguém submeteu o form');
@@ -117,7 +116,7 @@ export default function PaginaInicial() {
                 
                 console.log('O usuário digitou', eventInfo.target.value);
                 
-                const valor = event.target.value;
+                const valor = eventInfo.target.value;
                 setUsername(valor);
                 
               }}
@@ -126,20 +125,16 @@ export default function PaginaInicial() {
 
             <TextField
               value = {username}
-              
-              onChange = {function (eventInfo){
-                
+              onChange = {function (eventInfo){   
+
                 console.log('O usuário digitou', eventInfo.target.value);
-                
-                const valor = event.target.value;
+                const valor = eventInfo.target.value;
                 setUsername(valor);
                 
               }}
 
+              placeholder="Enter your Github login 🐈" 
               
-              placeholder="Enter your Github login 👽" 
-              
-
               fullWidth
               textFieldColors={{
                 neutral: {
@@ -188,7 +183,12 @@ export default function PaginaInicial() {
                 marginBottom: '16px',
               }}
               src={`https://github.com/${username}.png`}
+              
+              
+
+              
             />
+              
             <Text
               variant="body4"
               styleSheet={{
