@@ -18,7 +18,7 @@ function getRealTimeChat(adicionaMensagem) {
         console.log('Houve uma nova mensagem', respostaLive)
       })
       .subscribe();
-  }
+    }
 
   
 
@@ -171,7 +171,6 @@ export default function ChatPage() {
                         }}
 
                     >
-                        
                         <TextField
                             value = {mensagem}
                             onChange = {(event) => {
@@ -179,6 +178,7 @@ export default function ChatPage() {
                                 setMensagem(valor);
 
                             }}
+
                             //função responsavél pelo 'enter' do teclado    
                             onKeyPress={(event) => {
                                 if (event.key === 'Enter') {
@@ -187,8 +187,10 @@ export default function ChatPage() {
                                     
                                     console.log(event);
                                 }
+
                             }} 
-              
+                            
+                            
                             placeholder="Enter your message..."
                             type="textarea"
                            
@@ -202,7 +204,20 @@ export default function ChatPage() {
                                 marginRight: '12px',
                                 color: appConfig.theme.colors.neutrals[200],
                             }}
+
                         />
+
+                     
+                          {/*   onMessageClick = {() => {
+                                console.log('Nova mensagem:', novaMensagem);
+                                console.log('listaDeMensagens:', listaDeMensagens);
+                            }}  */}
+                            
+                     
+                                
+                        {/* <button name = "button" addEventListener="alert('Enviar')" class="enviar_msn"> Enviar </button> */}
+                        
+                 
                         <ButtonSendSticker 
                             onStickerClick = {(sticker) => {
                                 console.log('[USANDO UM COMPONENTE] Manda este sticker para o back-end', sticker);
@@ -210,6 +225,7 @@ export default function ChatPage() {
                             
                             }}
                         />
+
                     </Box>
                 </Box>
             </Box>
@@ -245,6 +261,7 @@ function Header() {
     );
 }
 
+
 function MessageList(props) {
     console.log(props);
     return (  
@@ -274,7 +291,7 @@ function MessageList(props) {
                             backgroundColor: appConfig.theme.colors.neutrals[700],
                             },
                         }}
-                    >
+                        >
                         <Box
                             styleSheet={{
                              marginBottom: '8px',
@@ -308,6 +325,9 @@ function MessageList(props) {
 
                                 {(new Date().toLocaleDateString())}
                             </Text>
+                        
+                        {/* <button onclick="alert()" class="tecla_deletar"> Deletar </button> */}
+
                         </Box>
                         {/* Condicional: {mensagem.texto.startsWith(':sticker:').toString()} */}
                         {mensagem.texto.startsWith(':sticker:') 
@@ -320,9 +340,13 @@ function MessageList(props) {
                             )}        
 
                         {/* {mensagem.texto} */}
+
                     </Text>
+            
                 );
+                
             })}
+
         </Box>
     )
 }
