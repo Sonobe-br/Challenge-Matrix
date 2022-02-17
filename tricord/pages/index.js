@@ -243,7 +243,7 @@ export default function PaginaInicial() {
             }}
         >     
           {/* texto abaixo do png */}
-          {!user ? ' 🤖 Skynet 🤖 ' : name ? name : user}
+          {!user ? ' 💀 Skynet 🤖 ' : name ? name : user}
 
         </Text>
 
